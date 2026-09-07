@@ -18,28 +18,6 @@ if ($conn->connect_error) {
 }
 
 $method = $_SERVER['REQUEST_METHOD'];
-
-// PUT ja DELETE vaativat autentikoinnin
-if ($_SERVER['REQUEST_METHOD'] === 'PUT' || $_SERVER['REQUEST_METHOD'] === 'DELETE') {
-    $validUser = "admin";
-    $validPassword = "salasana123";
-
-    if (
-        !isset($_SERVER['PHP_AUTH_USER']) ||
-        !isset($_SERVER['PHP_AUTH_PW']) ||
-        $_SERVER['PHP_AUTH_USER'] !== $validUser ||
-        $_SERVER['PHP_AUTH_PW'] !== $validPassword
-    ) {
-        header('WWW-Authenticate: Basic realm="REST API"');
-        http_response_code(401);
-
-        echo json_encode([
-            "virhe" => "Autentikointi vaaditaan"
-        ], JSON_UNESCAPED_UNICODE);
-
-        exit;
-    }
-}
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
 
@@ -279,4 +257,3 @@ else {
 $conn->close();
 
 ?>
-

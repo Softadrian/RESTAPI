@@ -1,0 +1,113 @@
+swagger: '2.0'
+
+info:
+  title: Käyttäjä API
+  description: REST API käyttäjien hallintaan
+  version: '1.0.0'
+
+host: localhost:8080
+basePath: /
+
+schemes:
+  - http
+
+paths:
+
+  /users.php:
+    get:
+      summary: Hae kaikki käyttäjät
+      responses:
+        200:
+          description: Käyttäjät haettu onnistuneesti
+
+    post:
+      summary: Lisää uusi käyttäjä
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: user
+          required: true
+          schema:
+            type: object
+            required:
+              - nimi
+              - sahkoposti
+            properties:
+              nimi:
+                type: string
+              sahkoposti:
+                type: string
+      responses:
+        201:
+          description: Käyttäjä lisätty
+        400:
+          description: Virheelliset tiedot
+
+  /users.php?id={id}:
+    get:
+      summary: Hae käyttäjä ID:n perusteella
+      parameters:
+        - name: id
+          in: query
+          required: true
+          type: integer
+      responses:
+        200:
+          description: Käyttäjä löytyi
+        404:
+          description: Käyttäjää ei löytynyt
+
+    put:
+      summary: Päivitä käyttäjän tiedot
+      consumes:
+        - application/json
+      parameters:
+        - name: id
+          in: query
+          required: true
+          type: integer
+        - in: body
+          name: user
+          required: true
+          schema:
+            type: object
+            required:
+              - nimi
+              - sahkoposti
+            properties:
+              nimi:
+                type: string
+              sahkoposti:
+                type: string
+      security:
+        - basicAuth: []
+      responses:
+        200:
+          description: Käyttäjä päivitetty
+        401:
+          description: Autentikointi vaaditaan
+        404:
+          description: Käyttäjää ei löytynyt
+
+    delete:
+      summary: Poista käyttäjä
+      parameters:
+        - name: id
+          in: query
+          required: true
+          type: integer
+      security:
+        - basicAuth: []
+      responses:
+        200:
+          description: Käyttäjä poistettu
+        401:
+          description: Autentikointi vaaditaan
+        404:
+          description: Käyttäjää ei löytynyt
+
+securityDefinitions:
+  basicAuth:
+    type: basic
+    description: Basic Authentication
