@@ -8,7 +8,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #ffffff;
+            background-color: #00e5ff;
             text-align: center;
             margin: 0;
             padding: 30px;
@@ -32,7 +32,7 @@
             height: 220px;
             object-fit: cover;
             border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 10px rgba(28, 124, 100, 0.2);
         }
 
         button {
